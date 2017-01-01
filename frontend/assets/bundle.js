@@ -54,7 +54,7 @@
 	
 	var _BookList2 = _interopRequireDefault(_BookList);
 	
-	var _BookSearch = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./components/BookSearch.jsx\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _BookSearch = __webpack_require__(90);
 	
 	var _BookSearch2 = _interopRequireDefault(_BookSearch);
 	
@@ -19478,7 +19478,66 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 90 */,
+/* 90 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var BookSearch = _react2.default.createClass({
+	  displayName: 'BookSearch',
+	
+	  getInitialState: function getInitialState() {
+	    return { search: '', list: [] };
+	  },
+	  handleChange: function handleChange(e) {
+	    this.setState({ search: e.target.value });
+	    this.props.search(e.target.value);
+	  },
+	  handleBookSearch: function handleBookSearch(data) {
+	    // if (data){
+	    //   this.setState({list: this.state.value})
+	    //   return;
+	    $.ajax({
+	      url: "https://www.googleapis.com/books/v1/volumes?q=" + this.props.params.search,
+	      dataType: 'json',
+	      //  cache: true,
+	      success: function success(data) {
+	        console.log(data);
+	        var list = this.state.data.filter(function (data) {
+	          return data.items;
+	        });
+	        this.setState({ list: list });
+	      }
+	      //   this.setState({list: data.items})
+	      // }.bind(this),
+	      // error: function(xhr, status, err) {
+	      //    console.log("error")
+	      //    console.error(this.props.url, status, err.toString());
+	      // }.bind(this),
+	      //  timeout:10000
+	    });
+	  },
+	  render: function render() {
+	    return _react2.default.createElement('input', {
+	      className: 'form-control',
+	      type: 'text',
+	      placeholder: 'look up a book',
+	      value: this.state.search,
+	      onChange: this.handleChange,
+	      search: this.handleBookSearch
+	    });
+	  }
+	});
+	// search={this.handleBookSearch}
+	module.exports = BookSearch;
+
+/***/ },
 /* 91 */
 /***/ function(module, exports, __webpack_require__) {
 

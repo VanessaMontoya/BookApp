@@ -2,7 +2,7 @@ import React from 'react'
 
 var BookSearch = React.createClass({
   getInitialState: function() {
-    return ({search: ''});
+    return ({search: '', list:[]});
   },
   handleChange: function(e) {
     this.setState({search: e.target.value});
@@ -18,27 +18,29 @@ var BookSearch = React.createClass({
         //  cache: true,
         success: function(data){
           console.log(data)
-          this.setState({list: data.items})
-        }.bind(this),
+          var list = this.state.data.filter(function(data){
+         return (data.items);
+           })
+           this.setState({list: list});
+        }
+        //   this.setState({list: data.items})
+        // }.bind(this),
         // error: function(xhr, status, err) {
         //    console.log("error")
         //    console.error(this.props.url, status, err.toString());
         // }.bind(this),
         //  timeout:10000
-    }),
-     var list = this.state.data.filter(function(data){
-         return (data.items);
-     })
-     this.setState({list: list});
-  ,
+    })
+   },
   render: function() {
     return (
-      <input className="form-control"
+      <input 
+        className="form-control"
         type="text"
         placeholder="look up a book"
         value={this.state.search}
         onChange={this.handleChange}
-       
+       search={this.handleBookSearch}
       />
     )
   }
