@@ -9,22 +9,23 @@ var BookSearch = React.createClass({
     this.props.search(e.target.value);
   },
   handleBookSearch: function(data){
-     // if (data){
-     //   this.setState({list: this.state.value})
-     //   return;
+     if (data){
+       this.setState({list: this.state.value})
+       return;
+     }
      $.ajax({
         url: "https://www.googleapis.com/books/v1/volumes?q=" + this.props.params.search,
         dataType: 'json',
-        //  cache: true,
+        cache: true,
         success: function(data){
           console.log(data)
           var list = this.state.data.filter(function(data){
          return (data.items);
            })
-           this.setState({list: list});
-        }
-        //   this.setState({list: data.items})
-        // }.bind(this),
+           //this.setState({list: list});
+        
+          this.setState({list: data.items})
+        }.bind(this),
         // error: function(xhr, status, err) {
         //    console.log("error")
         //    console.error(this.props.url, status, err.toString());
@@ -45,5 +46,5 @@ var BookSearch = React.createClass({
     )
   }
 })
- // search={this.handleBookSearch}
+ 
 module.exports = BookSearch

@@ -19500,27 +19500,23 @@
 	    this.props.search(e.target.value);
 	  },
 	  handleBookSearch: function handleBookSearch(data) {
-	    // if (data){
-	    //   this.setState({list: this.state.value})
-	    //   return;
+	    if (data) {
+	      this.setState({ list: this.state.value });
+	      return;
+	    }
 	    $.ajax({
 	      url: "https://www.googleapis.com/books/v1/volumes?q=" + this.props.params.search,
 	      dataType: 'json',
-	      //  cache: true,
-	      success: function success(data) {
+	      cache: true,
+	      success: function (data) {
 	        console.log(data);
 	        var list = this.state.data.filter(function (data) {
 	          return data.items;
 	        });
-	        this.setState({ list: list });
-	      }
-	      //   this.setState({list: data.items})
-	      // }.bind(this),
-	      // error: function(xhr, status, err) {
-	      //    console.log("error")
-	      //    console.error(this.props.url, status, err.toString());
-	      // }.bind(this),
-	      //  timeout:10000
+	        //this.setState({list: list});
+	
+	        this.setState({ list: data.items });
+	      }.bind(this)
 	    });
 	  },
 	  render: function render() {
@@ -19534,7 +19530,7 @@
 	    });
 	  }
 	});
-	// search={this.handleBookSearch}
+	
 	module.exports = BookSearch;
 
 /***/ },
